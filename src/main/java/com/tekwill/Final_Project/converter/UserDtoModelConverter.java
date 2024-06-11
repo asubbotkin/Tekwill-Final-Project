@@ -1,13 +1,9 @@
 package com.tekwill.Final_Project.converter;
 
 import com.tekwill.Final_Project.dto.UserDTO;
-import com.tekwill.Final_Project.model.TaskModel;
 import com.tekwill.Final_Project.model.UserModel;
 import com.tekwill.Final_Project.repository.TaskRepository;
 import lombok.experimental.UtilityClass;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 @UtilityClass
 public class UserDtoModelConverter {

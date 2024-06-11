@@ -1,9 +1,7 @@
 package com.tekwill.Final_Project.controller;
 
 import com.tekwill.Final_Project.dto.UserDTO;
-import com.tekwill.Final_Project.model.UserModel;
 import com.tekwill.Final_Project.service.UserService;
-import lombok.experimental.UtilityClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

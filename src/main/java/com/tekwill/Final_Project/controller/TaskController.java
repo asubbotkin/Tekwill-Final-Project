@@ -1,4 +1,4 @@
-package com.tekwill.Final_Task.controller;
+package com.tekwill.Final_Project.controller;
 
 import com.tekwill.Final_Project.dto.TaskDTO;
 import com.tekwill.Final_Project.service.TaskService;
@@ -30,8 +30,8 @@ public class TaskController {
     }
 
 //    @PatchMapping("api/tasks/update/{id}")
-//    public ResponseEntity<String> updateTaskById(@PathVariable Integer id, @RequestBody TaskDTO TaskDTO){
-//        taskService.updateTask(id, TaskDTO);
+//    public ResponseEntity<String> updateTaskById(@PathVariable Integer id, @RequestBody TaskDTO){
+//        taskService.updateTask(id, taskDTO);
 //        return ResponseEntity.ok("Task was updated!");
 //    }
 

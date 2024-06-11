@@ -1,7 +1,6 @@
 package com.tekwill.Final_Project.controller;
 
 import com.tekwill.Final_Project.dto.ProjectDTO;
-import com.tekwill.Final_Project.model.ProjectModel;
 import com.tekwill.Final_Project.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +32,7 @@ public class ProjectController {
 
     @PatchMapping("api/projects/update/{id}")
     public ResponseEntity<String> updateProjectById(@PathVariable Integer id, @RequestBody ProjectDTO projectDTO){
-        projectService.updateProject(id, projectDTO);
+        projectService.updateProjectData(id, projectDTO);
         return ResponseEntity.ok("Project was updated!");
     }
 

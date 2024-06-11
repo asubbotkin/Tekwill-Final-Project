@@ -7,7 +7,6 @@ import com.tekwill.Final_Project.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class ProjectService {
         projectRepository.save(ProjectDtoModelConverter.projectToModel(projectDTO));
     }
 
-    public void updateProject(Integer id, ProjectDTO projectDTO){
+    public void updateProjectData(Integer id, ProjectDTO projectDTO){
         ProjectModel updatedProjectModel = projectRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if(projectDTO.getName() != null) updatedProjectModel.setName(projectDTO.getName());
