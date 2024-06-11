@@ -31,7 +31,7 @@ public class UserService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
     }
     public void addUser(UserDTO userDTO) {
-        userRepository.save(UserDtoModelConverter.userToModel(taskRepository, userDTO));
+        userRepository.save(UserDtoModelConverter.userToModel(userDTO));
     }
 
     public void updateUserData(Integer id, UserDTO userDTO) {

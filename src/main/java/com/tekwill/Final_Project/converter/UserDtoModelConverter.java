@@ -16,7 +16,7 @@ public class UserDtoModelConverter {
                 .build();
     }
 
-    public UserModel userToModel(TaskRepository taskRepository, UserDTO dto){
+    public UserModel userToModel(UserDTO dto){
         return UserModel.builder()
                 .userName(dto.getUserName())
                 .password(dto.getPassword())
