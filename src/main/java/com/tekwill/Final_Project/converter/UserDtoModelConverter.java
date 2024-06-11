@@ -2,7 +2,6 @@ package com.tekwill.Final_Project.converter;
 
 import com.tekwill.Final_Project.dto.UserDTO;
 import com.tekwill.Final_Project.model.UserModel;
-import com.tekwill.Final_Project.repository.TaskRepository;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

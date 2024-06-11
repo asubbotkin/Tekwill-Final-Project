@@ -13,8 +13,6 @@ import java.util.List;
 public class TaskController {
     @Autowired
     TaskService taskService;
-    @Autowired
-    private TaskRepository taskRepository;
 
     @GetMapping("api/tasks/all")
     private ResponseEntity<List<TaskDTO>> getAllTasks(){
