@@ -1,6 +1,7 @@
 package com.tekwill.Final_Project.controller;
 
 import com.tekwill.Final_Project.dto.TaskDTO;
+import com.tekwill.Final_Project.repository.TaskRepository;
 import com.tekwill.Final_Project.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import java.util.List;
 public class TaskController {
     @Autowired
     TaskService taskService;
+    @Autowired
+    private TaskRepository taskRepository;
 
     @GetMapping("api/tasks/all")
     private ResponseEntity<List<TaskDTO>> getAllTasks(){
@@ -21,6 +24,16 @@ public class TaskController {
     @GetMapping("api/tasks/{id}")
     public ResponseEntity<TaskDTO> findTaskById(@PathVariable Integer id){
         return ResponseEntity.ok(taskService.findTaskById(id));
+    }
+
+    @GetMapping("api/tasks/project/{id}")
+    public ResponseEntity<List<TaskDTO>> findTaskByProjectId(@PathVariable Integer id){
+        return ResponseEntity.ok(taskService.getAllTasksInProject(id));
+    }
+
+    @GetMapping("api/tasks/user/{id}")
+    public ResponseEntity<List<TaskDTO>> findTasksByUserId(@PathVariable Integer id){
+        return ResponseEntity.ok(taskService.getAllTasksOfUser(id));
     }
 
     @PostMapping("api/tasks/new")

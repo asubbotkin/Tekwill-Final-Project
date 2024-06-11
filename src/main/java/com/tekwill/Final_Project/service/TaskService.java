@@ -30,6 +30,19 @@ public class TaskService {
         taskRepository.save(TaskDtoModelConverter.taskToModel(taskDTO));
     }
 
+    public List<TaskDTO> getAllTasksInProject(Integer id){
+
+        return taskRepository.findAllTasksInProject(id
+                ).stream()
+                .map(e -> TaskDtoModelConverter.taskToDTO(e))
+                .toList();
+    }
+
+    public List<TaskDTO> getAllTasksOfUser(Integer id){
+        return taskRepository.findAllTasksOfUser(id).stream()
+                .map(e -> TaskDtoModelConverter.taskToDTO(e))
+                .toList();
+    }
 
     public void removeTaskById(Integer id){
         taskRepository.deleteById(id);
