@@ -20,10 +20,11 @@ public class TaskDtoModelConverter {
         return TaskDTO.builder()
                 .taskId(model.getTaskId())
                 .name(model.getName())
+                .desc(model.getDescription())
                 .daysPerTask(model.getDaysPerTask())
                 .status(model.getStatus())
-                .projectId(model.getProjectModel().getProjectId())
-                .userId((model.getUserModel().getUser_id()))
+                .projectId(model.getProjectModel() == null ? null : model.getProjectModel().getProjectId())
+                .userId((model.getUserModel() == null ? null : model.getUserModel().getUserId()))
                 .build();
     }
 
@@ -39,4 +40,13 @@ public class TaskDtoModelConverter {
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)))
                 .build();
     }
+
+//    public TaskModel newTaskToModel(TaskDTO dto){
+//        return TaskModel.builder()
+//                .name(dto.getName())
+//                .description(dto.getDesc())
+//                .daysPerTask(dto.getDaysPerTask())
+//                .status(dto.getStatus())
+//                .build();
+//    }
 }

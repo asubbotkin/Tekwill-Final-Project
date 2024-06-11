@@ -21,8 +21,7 @@ public class TaskDTO {
     private Integer daysPerTask;
     @NotEmpty
     private String status;
-    @NotNull
+
     private Integer projectId;
-    @NotNull
     private Integer userId;
 }

@@ -13,6 +13,6 @@ public interface TaskRepository extends CrudRepository<TaskModel, Integer> {
     @Query("select tm from TaskModel tm where tm.projectModel.projectId = :projectId")
     List<TaskModel> findAllTasksInProject(Integer projectId);
 
-    @Query("select tm from TaskModel tm where tm.userModel.user_id = :userId")
+    @Query("select tm from TaskModel tm where tm.userModel.userId = :userId")
     List<TaskModel> findAllTasksOfUser(Integer userId);
 }

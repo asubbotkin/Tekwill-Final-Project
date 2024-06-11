@@ -9,7 +9,7 @@ public class UserDtoModelConverter {
 
     public UserDTO userToDTO(UserModel model){
         return UserDTO.builder()
-                .userId(model.getUser_id())
+                .userId(model.getUserId())
                 .userName(model.getUserName())
                 .password(model.getPassword())
                 .build();

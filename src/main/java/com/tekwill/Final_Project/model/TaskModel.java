@@ -34,7 +34,7 @@ public class TaskModel {
     @JoinColumn(name = "fk_project_id", referencedColumnName = "project_id")
     private ProjectModel projectModel;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")
     private UserModel userModel;
 }

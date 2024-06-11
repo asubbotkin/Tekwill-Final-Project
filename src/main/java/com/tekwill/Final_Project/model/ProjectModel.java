@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "project_info")
@@ -31,4 +32,7 @@ public class ProjectModel {
 
     @Column(name = "expiration_date")
     private Date expirationDate;
+
+    @OneToMany(mappedBy = "projectModel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TaskModel> projectTasks;
 }

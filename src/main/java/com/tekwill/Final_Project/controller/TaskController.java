@@ -1,7 +1,6 @@
 package com.tekwill.Final_Project.controller;
 
 import com.tekwill.Final_Project.dto.TaskDTO;
-import com.tekwill.Final_Project.repository.TaskRepository;
 import com.tekwill.Final_Project.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +39,19 @@ public class TaskController {
         return ResponseEntity.ok("New Task was added!");
     }
 
-//    @PatchMapping("api/tasks/update/{id}")
+    @PatchMapping("api/tasks/{taskId}/users/{userId}")
+    public ResponseEntity<String> assignTaskToUser(@PathVariable Integer taskId, @PathVariable Integer userId){
+        taskService.assignTaskToUser(taskId, userId);
+        return ResponseEntity.ok("Task Assigned!");
+    }
+
+    @PatchMapping("api/tasks/{taskId}/projects/{projectId}")
+    public ResponseEntity<String> assignTaskProject(@PathVariable Integer taskId, @PathVariable Integer projectId){
+        taskService.assignTaskToProject(taskId, projectId);
+        return ResponseEntity.ok("Task Assigned!");
+    }
+
+    //    @PatchMapping("api/tasks/update/{id}")
 //    public ResponseEntity<String> updateTaskById(@PathVariable Integer id, @RequestBody TaskDTO){
 //        taskService.updateTask(id, taskDTO);
 //        return ResponseEntity.ok("Task was updated!");
