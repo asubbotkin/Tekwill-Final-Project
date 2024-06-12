@@ -52,6 +52,15 @@ public class ProjectService {
         projectRepository.save(updatedProject);
     }
 
+//    public void createTaskInProject(Integer projectId, TaskDTO taskDTO) {
+//        ProjectModel updatedProject = projectRepository.findById(projectId)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//        TaskModel newTask = TaskDtoModelConverter.newTaskToModel(taskDTO);
+//        taskRepository.save(newTask);
+//        updatedProject.getProjectTasks().add(newTask);
+//        projectRepository.save(updatedProject);
+//    }
+
     public void removeProjectById(Integer projectId) {
         projectRepository.deleteById(projectId);
     }

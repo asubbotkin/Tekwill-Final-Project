@@ -1,5 +1,6 @@
 package com.tekwill.Final_Project.service;
 
+import com.tekwill.Final_Project.constants.TaskStatus;
 import com.tekwill.Final_Project.converter.TaskDtoModelConverter;
 import com.tekwill.Final_Project.dto.TaskDTO;
 import com.tekwill.Final_Project.model.TaskModel;
@@ -33,15 +34,7 @@ public class TaskService {
     }
 
     public void addTask(TaskDTO taskDTO){
-        TaskModel newTask = TaskModel.builder()
-                .name(taskDTO.getName())
-                .description(taskDTO.getDesc())
-                .daysPerTask(taskDTO.getDaysPerTask())
-                .status(taskDTO.getStatus())
-                .build();
-        taskRepository.save(newTask);
-
-//        taskRepository.save(TaskDtoModelConverter.taskToModel(taskDTO));
+        taskRepository.save(TaskDtoModelConverter.newTaskToModel(taskDTO));
     }
 
     public List<TaskDTO> getAllTasksInProject(Integer projectId){
@@ -78,10 +71,25 @@ public class TaskService {
         if (taskDTO.getDaysPerTask() != null) updatedTaskModel.setDaysPerTask(taskDTO.getDaysPerTask());
         if (taskDTO.getStatus() != null) updatedTaskModel.setStatus(taskDTO.getStatus());
         taskRepository.save(updatedTaskModel);
+
+//        taskRepository.save(TaskDtoModelConverter.taskToModel(taskDTO));
     }
 
+    public void taskDone(Integer taskId){
+        TaskModel updatedTask = taskRepository.findById(taskId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        updatedTask.setStatus(String.valueOf(TaskStatus.DONE));
+        taskRepository.save(updatedTask);
+    }
 
-//    public void removeTaskById(Integer id){
-//        taskRepository.deleteById(id);
-//    }
+    public void startTask(Integer taskId) {
+        TaskModel updatedTask = taskRepository.findById(taskId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        updatedTask.setStatus(String.valueOf(TaskStatus.IN_PROGRESS));
+        taskRepository.save(updatedTask);
+    }
+
+    public void removeTaskById(Integer id){
+        taskRepository.deleteById(id);
+    }
 }

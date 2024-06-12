@@ -28,13 +28,13 @@ public class UserController {
         return ResponseEntity.ok("New user created!");
     }
 
-    @PatchMapping("api/users/update/{id}")
+    @PatchMapping("api/users/update/{userId}")
     public ResponseEntity<String> updateUserData(@PathVariable Integer userId, @RequestBody UserDTO userDTO){
         userService.updateUserData(userId, userDTO);
         return ResponseEntity.ok("User data with: " + userId + " was updated!");
     }
 
-    @DeleteMapping("api/users/remove/{id}")
+    @DeleteMapping("api/users/remove/{userId}")
     public ResponseEntity<String> removeUser(@PathVariable Integer userId){
         userService.deleteUser(userId);
         return ResponseEntity.ok("User with: " + userId + " was deleted!");

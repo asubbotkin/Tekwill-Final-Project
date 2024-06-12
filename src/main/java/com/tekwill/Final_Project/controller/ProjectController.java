@@ -19,7 +19,7 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.getAllProjects());
     }
 
-    @GetMapping("api/projects/{id}")
+    @GetMapping("api/projects/{projectId}")
     public ResponseEntity<ProjectDTO> findProjectById(@PathVariable Integer projectId){
         return ResponseEntity.ok(projectService.findProjectById(projectId));
     }
@@ -30,11 +30,17 @@ public class ProjectController {
         return ResponseEntity.ok("New project was added!");
     }
 
-    @PatchMapping("api/projects/update/{id}")
+    @PatchMapping("api/projects/update/{projectId}")
     public ResponseEntity<String> updateProjectById(@PathVariable Integer projectId, @RequestBody ProjectDTO projectDTO){
         projectService.updateProjectData(projectId, projectDTO);
         return ResponseEntity.ok("Project with ID: " + projectId + " was updated!");
     }
+
+    //    @PatchMapping("api/projects/{projectId}/tasks/new")
+//    public ResponseEntity<String> newTaskInProject(@PathVariable Integer projectId, @RequestBody TaskDTO taskDTO){
+//        projectService.createTaskInProject(projectId, taskDTO);
+//        return ResponseEntity.ok("New task was added!");
+//    }
 
     @DeleteMapping("api/projects/{projectId}/remove/task/{taskId}")
     public ResponseEntity<String> deleteTaskFromProject(@PathVariable Integer projectId, @PathVariable Integer taskId){
@@ -42,7 +48,7 @@ public class ProjectController {
         return ResponseEntity.ok("Task with ID: " + taskId + " was removed from project with ID: " + projectId);
     }
 
-    @DeleteMapping("api/projects/remove/{id}")
+    @DeleteMapping("api/projects/remove/{projectId}")
     public ResponseEntity<String> removeProjectById(@PathVariable Integer projectId){
         projectService.removeProjectById(projectId);
         return ResponseEntity.ok("Project with ID: " + projectId + " was successfully removed!");

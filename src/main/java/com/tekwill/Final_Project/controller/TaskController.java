@@ -19,17 +19,17 @@ public class TaskController {
 
     }
 
-    @GetMapping("api/tasks/{id}")
+    @GetMapping("api/tasks/{taskId}")
     public ResponseEntity<TaskDTO> findTaskById(@PathVariable Integer taskId) {
         return ResponseEntity.ok(taskService.findTaskById(taskId));
     }
 
-    @GetMapping("api/tasks/project/{id}")
+    @GetMapping("api/tasks/project/{projectId}")
     public ResponseEntity<List<TaskDTO>> findTaskByProjectId(@PathVariable Integer projectId) {
         return ResponseEntity.ok(taskService.getAllTasksInProject(projectId));
     }
 
-    @GetMapping("api/tasks/users/{id}")
+    @GetMapping("api/tasks/users/{userId}")
     public ResponseEntity<List<TaskDTO>> findTasksByUserId(@PathVariable Integer userId) {
         return ResponseEntity.ok(taskService.getAllTasksOfUser(userId));
     }
@@ -52,16 +52,27 @@ public class TaskController {
         return ResponseEntity.ok("Task with ID: " + taskId + " assigned to project with ID: " + projectId);
     }
 
-    @PatchMapping("api/tasks/update/{id}")
+    @PatchMapping("api/tasks/update/{taskId}")
     public ResponseEntity<String> updateTaskById(@PathVariable Integer taskId, @RequestBody TaskDTO taskDTO) {
         taskService.updateTaskData(taskId, taskDTO);
         return ResponseEntity.ok("Task with ID: " + taskId + " was updated!");
     }
 
-//    @DeleteMapping("api/tasks/remove/{id}")
-//    public ResponseEntity<String> removeTaskById(@PathVariable Integer id) {
-//        taskService.removeTaskById(id);
-//        return ResponseEntity.ok("Task was successfully removed!");
-//    }
+    @PatchMapping("api/tasks/{taskId}/done")
+    public ResponseEntity<String> setTaskStatusDone(@PathVariable Integer taskId) {
+        taskService.taskDone(taskId);
+        return ResponseEntity.ok("Task with ID: " + taskId + " finished!");
+    }
+
+    @PatchMapping("api/tasks/{taskId}/start")
+    public ResponseEntity<String> setTaskStatusInProgress(@PathVariable Integer taskId) {
+        taskService.startTask(taskId);
+        return ResponseEntity.ok("Task with ID: " + taskId + " started!");
+    }
+    @DeleteMapping("api/tasks/remove/{taskId}")
+    public ResponseEntity<String> removeTaskById(@PathVariable Integer taskId) {
+        taskService.removeTaskById(taskId);
+        return ResponseEntity.ok("Task was successfully removed!");
+    }
 
 }
