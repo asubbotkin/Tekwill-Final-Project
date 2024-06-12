@@ -52,15 +52,15 @@ public class TaskService {
     }
 
     public void assignTaskToUser(Integer taskId, Integer userId){
-        TaskModel newTask = taskRepository.findById(taskId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        newTask.setUserModel(userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
-        taskRepository.save(newTask);
+        TaskModel taskToAssign = taskRepository.findById(taskId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        taskToAssign.setUserModel(userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+        taskRepository.save(taskToAssign);
     }
 
     public void assignTaskToProject(Integer taskId, Integer projectId){
-        TaskModel newTask = taskRepository.findById(taskId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        newTask.setProjectModel(projectRepository.findById(projectId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
-        taskRepository.save(newTask);
+        TaskModel taskToAssign = taskRepository.findById(taskId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        taskToAssign.setProjectModel(projectRepository.findById(projectId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+        taskRepository.save(taskToAssign);
     }
 
     public void updateTaskData(Integer taskId, TaskDTO taskDTO) {

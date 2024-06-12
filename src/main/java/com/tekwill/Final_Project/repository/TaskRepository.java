@@ -14,10 +14,10 @@ public interface TaskRepository extends CrudRepository<TaskModel, Integer> {
     @Query("select tm from TaskModel tm where tm.projectModel.projectId = :projectId")
     List<TaskModel> findAllTasksInProject(Integer projectId);
 
-    @Query("select tm from TaskModel tm where tm.userModel.userId = :userId")
+    @Query(value = "select tm from TaskModel tm where tm.userModel.userId = :userId", nativeQuery = true)
     List<TaskModel> findAllTasksOfUser(Integer userId);
 
-    @Query("update TaskModel tm set tm.status = 'DONE' where tm.taskId = :taskId")
+    @Query(value = "update TaskModel tm set tm.status = :status where tm.taskId = :taskId", nativeQuery = true)
     TaskModel taskDone(Integer taskId);
 
     @Query("update TaskModel tm set tm.status = :status where tm.taskId = :taskId")

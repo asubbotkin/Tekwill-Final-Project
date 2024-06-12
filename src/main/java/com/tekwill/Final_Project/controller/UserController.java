@@ -17,9 +17,9 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @GetMapping("api/users/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Integer id){
-        return ResponseEntity.ok(userService.findUserById(id));
+    @GetMapping("api/users/{userId}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Integer userId){
+        return ResponseEntity.ok(userService.findUserById(userId));
     }
 
     @PostMapping("api/users/new")
@@ -31,12 +31,12 @@ public class UserController {
     @PatchMapping("api/users/update/{userId}")
     public ResponseEntity<String> updateUserData(@PathVariable Integer userId, @RequestBody UserDTO userDTO){
         userService.updateUserData(userId, userDTO);
-        return ResponseEntity.ok("User data with: " + userId + " was updated!");
+        return ResponseEntity.ok("User data with ID: " + userId + " was updated!");
     }
 
     @DeleteMapping("api/users/remove/{userId}")
     public ResponseEntity<String> removeUser(@PathVariable Integer userId){
         userService.deleteUser(userId);
-        return ResponseEntity.ok("User with: " + userId + " was deleted!");
+        return ResponseEntity.ok("User with ID: " + userId + " was deleted!");
     }
 }
