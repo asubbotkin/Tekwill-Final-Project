@@ -36,6 +36,12 @@ public class ProjectController {
         return ResponseEntity.ok("Project was updated!");
     }
 
+    @DeleteMapping("api/projects/{projectId}/remove/task/{taskId}")
+    public ResponseEntity<String> deleteTaskFromProjet(@PathVariable Integer projectId, @PathVariable Integer taskId){
+        projectService.removeTaskFromProject(projectId, taskId);
+        return ResponseEntity.ok("Project was removed!");
+    }
+
     @DeleteMapping("api/projects/remove/{id}")
     public ResponseEntity<String> removeProjectById(@PathVariable Integer id){
         projectService.removeProjectById(id);

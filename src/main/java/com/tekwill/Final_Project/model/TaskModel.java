@@ -30,7 +30,7 @@ public class TaskModel {
     @Column(name = "status")
     private String status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "fk_project_id", referencedColumnName = "project_id")
     private ProjectModel projectModel;
 

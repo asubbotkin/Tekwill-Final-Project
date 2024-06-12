@@ -16,33 +16,41 @@ public class ProjectService {
     @Autowired
     ProjectRepository projectRepository;
 
-    public List<ProjectDTO> getAllProjects(){
+    public List<ProjectDTO> getAllProjects() {
         return ((List<ProjectModel>) projectRepository.findAll()).stream()
                 .map(e -> ProjectDtoModelConverter.projectToDTO(e))
                 .toList();
     }
 
-    public ProjectDTO findProjectById(Integer id){
+    public ProjectDTO findProjectById(Integer id) {
         return ProjectDtoModelConverter.projectToDTO(projectRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
     }
 
-    public void addProject(ProjectDTO projectDTO){
+    public void addProject(ProjectDTO projectDTO) {
         projectRepository.save(ProjectDtoModelConverter.projectToModel(projectDTO));
     }
 
-    public void updateProjectData(Integer id, ProjectDTO projectDTO){
+    public void updateProjectData(Integer id, ProjectDTO projectDTO) {
         ProjectModel updatedProjectModel = projectRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        if(projectDTO.getName() != null) updatedProjectModel.setName(projectDTO.getName());
-        if(projectDTO.getDesc() != null) updatedProjectModel.setDescription(projectDTO.getDesc());
-        if(projectDTO.getStartDate() != null) updatedProjectModel.setStartDate(projectDTO.getStartDate());
-        if(projectDTO.getExpDate() != null) updatedProjectModel.setExpirationDate(projectDTO.getExpDate());
+        if (projectDTO.getName() != null) updatedProjectModel.setName(projectDTO.getName());
+        if (projectDTO.getDesc() != null) updatedProjectModel.setDescription(projectDTO.getDesc());
+        if (projectDTO.getStartDate() != null) updatedProjectModel.setStartDate(projectDTO.getStartDate());
+        if (projectDTO.getExpDate() != null) updatedProjectModel.setExpirationDate(projectDTO.getExpDate());
         projectRepository.save(updatedProjectModel);
     }
 
 
-    public void removeProjectById(Integer id){
+    public void removeTaskFromProject(Integer projectId, Integer taskId) {
+        ProjectModel updatedProject = projectRepository.findById(projectId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//        List<TaskModel> tml = updatedProject.getProjectTasks();
+//        updatedProject.setProjectTasks(tml);
+        projectRepository.save(updatedProject);
+    }
+
+    public void removeProjectById(Integer id) {
         projectRepository.deleteById(id);
     }
 }

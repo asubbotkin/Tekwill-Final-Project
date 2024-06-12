@@ -28,7 +28,7 @@ public class TaskController {
         return ResponseEntity.ok(taskService.getAllTasksInProject(id));
     }
 
-    @GetMapping("api/tasks/user/{id}")
+    @GetMapping("api/tasks/users/{id}")
     public ResponseEntity<List<TaskDTO>> findTasksByUserId(@PathVariable Integer id){
         return ResponseEntity.ok(taskService.getAllTasksOfUser(id));
     }
