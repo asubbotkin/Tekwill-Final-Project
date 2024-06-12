@@ -4,6 +4,7 @@ import com.tekwill.Final_Project.converter.ProjectDtoModelConverter;
 import com.tekwill.Final_Project.dto.ProjectDTO;
 import com.tekwill.Final_Project.model.ProjectModel;
 import com.tekwill.Final_Project.repository.ProjectRepository;
+import com.tekwill.Final_Project.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ import java.util.List;
 public class ProjectService {
     @Autowired
     ProjectRepository projectRepository;
+    @Autowired
+    TaskRepository taskRepository;
 
     public List<ProjectDTO> getAllProjects() {
         return ((List<ProjectModel>) projectRepository.findAll()).stream()
@@ -22,8 +25,8 @@ public class ProjectService {
                 .toList();
     }
 
-    public ProjectDTO findProjectById(Integer id) {
-        return ProjectDtoModelConverter.projectToDTO(projectRepository.findById(id)
+    public ProjectDTO findProjectById(Integer projectId) {
+        return ProjectDtoModelConverter.projectToDTO(projectRepository.findById(projectId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
     }
 
@@ -31,8 +34,8 @@ public class ProjectService {
         projectRepository.save(ProjectDtoModelConverter.projectToModel(projectDTO));
     }
 
-    public void updateProjectData(Integer id, ProjectDTO projectDTO) {
-        ProjectModel updatedProjectModel = projectRepository.findById(id)
+    public void updateProjectData(Integer projectId, ProjectDTO projectDTO) {
+        ProjectModel updatedProjectModel = projectRepository.findById(projectId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (projectDTO.getName() != null) updatedProjectModel.setName(projectDTO.getName());
         if (projectDTO.getDesc() != null) updatedProjectModel.setDescription(projectDTO.getDesc());
@@ -41,16 +44,15 @@ public class ProjectService {
         projectRepository.save(updatedProjectModel);
     }
 
-
     public void removeTaskFromProject(Integer projectId, Integer taskId) {
         ProjectModel updatedProject = projectRepository.findById(projectId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-//        List<TaskModel> tml = updatedProject.getProjectTasks();
-//        updatedProject.setProjectTasks(tml);
+        updatedProject.getProjectTasks().remove(taskRepository.findById(taskId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
         projectRepository.save(updatedProject);
     }
 
-    public void removeProjectById(Integer id) {
-        projectRepository.deleteById(id);
+    public void removeProjectById(Integer projectId) {
+        projectRepository.deleteById(projectId);
     }
 }

@@ -26,6 +26,6 @@ public class UserModel {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "userModel", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "userModel", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<TaskModel> userTasks;
 }

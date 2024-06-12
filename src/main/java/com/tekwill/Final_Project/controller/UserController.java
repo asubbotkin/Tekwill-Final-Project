@@ -29,14 +29,14 @@ public class UserController {
     }
 
     @PatchMapping("api/users/update/{id}")
-    public ResponseEntity<String> updateUserData(@PathVariable Integer id, @RequestBody UserDTO userDTO){
-        userService.updateUserData(id, userDTO);
-        return ResponseEntity.ok("User updated!");
+    public ResponseEntity<String> updateUserData(@PathVariable Integer userId, @RequestBody UserDTO userDTO){
+        userService.updateUserData(userId, userDTO);
+        return ResponseEntity.ok("User data with: " + userId + " was updated!");
     }
 
     @DeleteMapping("api/users/remove/{id}")
-    public ResponseEntity<String> removeUser(@PathVariable Integer id){
-        userService.deleteUser(id);
-        return ResponseEntity.ok("User deleted!");
+    public ResponseEntity<String> removeUser(@PathVariable Integer userId){
+        userService.deleteUser(userId);
+        return ResponseEntity.ok("User with: " + userId + " was deleted!");
     }
 }

@@ -26,24 +26,24 @@ public class UserService {
                 .toList();
     }
 
-    public UserDTO findUserById(int id) {
-        return UserDtoModelConverter.userToDTO(userRepository.findById(id)
+    public UserDTO findUserById(Integer userId) {
+        return UserDtoModelConverter.userToDTO(userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
     }
     public void addUser(UserDTO userDTO) {
         userRepository.save(UserDtoModelConverter.userToModel(userDTO));
     }
 
-    public void updateUserData(Integer id, UserDTO userDTO) {
-        UserModel updatedUserModel = userRepository.findById(id)
+    public void updateUserData(Integer userId, UserDTO userDTO) {
+        UserModel updatedUserModel = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if(userDTO.getUserName() != null) updatedUserModel.setUserName(userDTO.getUserName());
         if(userDTO.getPassword() != null) updatedUserModel.setPassword(userDTO.getPassword());
         userRepository.save(updatedUserModel);
     }
 
-    public void deleteUser(Integer id) {
-        userRepository.deleteById(id);
+    public void deleteUser(Integer userId) {
+        userRepository.deleteById(userId);
     }
 
 }

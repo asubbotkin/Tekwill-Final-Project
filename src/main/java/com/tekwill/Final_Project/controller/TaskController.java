@@ -14,53 +14,54 @@ public class TaskController {
     TaskService taskService;
 
     @GetMapping("api/tasks/all")
-    private ResponseEntity<List<TaskDTO>> getAllTasks(){
+    private ResponseEntity<List<TaskDTO>> getAllTasks() {
         return ResponseEntity.ok(taskService.getAllTasks());
 
     }
+
     @GetMapping("api/tasks/{id}")
-    public ResponseEntity<TaskDTO> findTaskById(@PathVariable Integer id){
-        return ResponseEntity.ok(taskService.findTaskById(id));
+    public ResponseEntity<TaskDTO> findTaskById(@PathVariable Integer taskId) {
+        return ResponseEntity.ok(taskService.findTaskById(taskId));
     }
 
     @GetMapping("api/tasks/project/{id}")
-    public ResponseEntity<List<TaskDTO>> findTaskByProjectId(@PathVariable Integer id){
-        return ResponseEntity.ok(taskService.getAllTasksInProject(id));
+    public ResponseEntity<List<TaskDTO>> findTaskByProjectId(@PathVariable Integer projectId) {
+        return ResponseEntity.ok(taskService.getAllTasksInProject(projectId));
     }
 
     @GetMapping("api/tasks/users/{id}")
-    public ResponseEntity<List<TaskDTO>> findTasksByUserId(@PathVariable Integer id){
-        return ResponseEntity.ok(taskService.getAllTasksOfUser(id));
+    public ResponseEntity<List<TaskDTO>> findTasksByUserId(@PathVariable Integer userId) {
+        return ResponseEntity.ok(taskService.getAllTasksOfUser(userId));
     }
 
     @PostMapping("api/tasks/new")
-    public ResponseEntity<String> addTask(@RequestBody TaskDTO taskDTO){
+    public ResponseEntity<String> addTask(@RequestBody TaskDTO taskDTO) {
         taskService.addTask(taskDTO);
         return ResponseEntity.ok("New Task was added!");
     }
 
-    @PatchMapping("api/tasks/{taskId}/users/{userId}")
-    public ResponseEntity<String> assignTaskToUser(@PathVariable Integer taskId, @PathVariable Integer userId){
+    @PatchMapping("api/tasks/{taskId}/assign/users/{userId}")
+    public ResponseEntity<String> assignTaskToUser(@PathVariable Integer taskId, @PathVariable Integer userId) {
         taskService.assignTaskToUser(taskId, userId);
-        return ResponseEntity.ok("Task Assigned!");
+        return ResponseEntity.ok("Task with ID: " + taskId + " assigned to user with ID: " + userId);
     }
 
-    @PatchMapping("api/tasks/{taskId}/projects/{projectId}")
-    public ResponseEntity<String> assignTaskProject(@PathVariable Integer taskId, @PathVariable Integer projectId){
+    @PatchMapping("api/tasks/{taskId}/assign/projects/{projectId}")
+    public ResponseEntity<String> assignTaskProject(@PathVariable Integer taskId, @PathVariable Integer projectId) {
         taskService.assignTaskToProject(taskId, projectId);
-        return ResponseEntity.ok("Task Assigned!");
+        return ResponseEntity.ok("Task with ID: " + taskId + " assigned to project with ID: " + projectId);
     }
 
-    //    @PatchMapping("api/tasks/update/{id}")
-//    public ResponseEntity<String> updateTaskById(@PathVariable Integer id, @RequestBody TaskDTO){
-//        taskService.updateTask(id, taskDTO);
-//        return ResponseEntity.ok("Task was updated!");
+    @PatchMapping("api/tasks/update/{id}")
+    public ResponseEntity<String> updateTaskById(@PathVariable Integer taskId, @RequestBody TaskDTO taskDTO) {
+        taskService.updateTaskData(taskId, taskDTO);
+        return ResponseEntity.ok("Task with ID: " + taskId + " was updated!");
+    }
+
+//    @DeleteMapping("api/tasks/remove/{id}")
+//    public ResponseEntity<String> removeTaskById(@PathVariable Integer id) {
+//        taskService.removeTaskById(id);
+//        return ResponseEntity.ok("Task was successfully removed!");
 //    }
-
-    @DeleteMapping("api/tasks/remove/{id}")
-    public ResponseEntity<String> removeTaskById(@PathVariable Integer id){
-        taskService.removeTaskById(id);
-        return ResponseEntity.ok("Task was successfully removed!");
-    }
 
 }

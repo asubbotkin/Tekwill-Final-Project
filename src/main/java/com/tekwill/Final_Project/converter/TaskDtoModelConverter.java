@@ -11,10 +11,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 @UtilityClass
 public class TaskDtoModelConverter {
-    @Autowired
-    ProjectRepository projectRepository;
-    @Autowired
-    UserRepository userRepository;
+//    @Autowired
+//    ProjectRepository projectRepository;
+//    @Autowired
+//    UserRepository userRepository;
 
     public TaskDTO taskToDTO(TaskModel model){
         return TaskDTO.builder()
@@ -28,25 +28,16 @@ public class TaskDtoModelConverter {
                 .build();
     }
 
-    public TaskModel taskToModel(TaskDTO dto){
-        return TaskModel.builder()
-                .name(dto.getName())
-                .description(dto.getDesc())
-                .daysPerTask(dto.getDaysPerTask())
-                .status(dto.getStatus())
-                .projectModel(projectRepository.findById(dto.getProjectId())
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)))
-                .userModel(userRepository.findById(dto.getUserId())
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)))
-                .build();
-    }
-
-//    public TaskModel newTaskToModel(TaskDTO dto){
+//    public TaskModel taskToModel(TaskDTO dto){
 //        return TaskModel.builder()
 //                .name(dto.getName())
 //                .description(dto.getDesc())
 //                .daysPerTask(dto.getDaysPerTask())
 //                .status(dto.getStatus())
+//                .projectModel(projectRepository.findById(dto.getProjectId())
+//                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)))
+//                .userModel(userRepository.findById(dto.getUserId())
+//                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)))
 //                .build();
 //    }
 }

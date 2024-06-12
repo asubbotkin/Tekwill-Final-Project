@@ -27,8 +27,8 @@ public class TaskService {
                 .map(e -> TaskDtoModelConverter.taskToDTO(e))
                 .toList();
     }
-    public TaskDTO findTaskById(Integer id){
-        return TaskDtoModelConverter.taskToDTO(taskRepository.findById(id)
+    public TaskDTO findTaskById(Integer taskId){
+        return TaskDtoModelConverter.taskToDTO(taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
     }
 
@@ -44,16 +44,16 @@ public class TaskService {
 //        taskRepository.save(TaskDtoModelConverter.taskToModel(taskDTO));
     }
 
-    public List<TaskDTO> getAllTasksInProject(Integer id){
+    public List<TaskDTO> getAllTasksInProject(Integer projectId){
 
-        return taskRepository.findAllTasksInProject(id
+        return taskRepository.findAllTasksInProject(projectId
                 ).stream()
                 .map(e -> TaskDtoModelConverter.taskToDTO(e))
                 .toList();
     }
 
-    public List<TaskDTO> getAllTasksOfUser(Integer id){
-        return taskRepository.findAllTasksOfUser(id).stream()
+    public List<TaskDTO> getAllTasksOfUser(Integer userId){
+        return taskRepository.findAllTasksOfUser(userId).stream()
                 .map(e -> TaskDtoModelConverter.taskToDTO(e))
                 .toList();
     }
@@ -70,7 +70,18 @@ public class TaskService {
         taskRepository.save(newTask);
     }
 
-    public void removeTaskById(Integer id){
-        taskRepository.deleteById(id);
+    public void updateTaskData(Integer taskId, TaskDTO taskDTO) {
+        TaskModel updatedTaskModel = taskRepository.findById(taskId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        if (taskDTO.getName() != null) updatedTaskModel.setName(taskDTO.getName());
+        if (taskDTO.getDesc() != null) updatedTaskModel.setDescription(taskDTO.getDesc());
+        if (taskDTO.getDaysPerTask() != null) updatedTaskModel.setDaysPerTask(taskDTO.getDaysPerTask());
+        if (taskDTO.getStatus() != null) updatedTaskModel.setStatus(taskDTO.getStatus());
+        taskRepository.save(updatedTaskModel);
     }
+
+
+//    public void removeTaskById(Integer id){
+//        taskRepository.deleteById(id);
+//    }
 }
