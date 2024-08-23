@@ -6,15 +6,32 @@ import com.tekwill.Final_Project.repository.ProjectRepository;
 import com.tekwill.Final_Project.repository.UserRepository;
 import lombok.experimental.UtilityClass;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 @UtilityClass
+@EnableJpaRepositories
 public class TaskDtoModelConverter {
+
     @Autowired
     ProjectRepository projectRepository;
     @Autowired
     UserRepository userRepository;
+    @Bean
+    public TaskModel taskToModel(TaskDTO dto){
+        return TaskModel.builder()
+                .name(dto.getName())
+                .description(dto.getDesc())
+                .daysPerTask(dto.getDaysPerTask())
+                .status(dto.getStatus())
+                .projectModel(projectRepository.findById(dto.getProjectId())
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)))
+                .userModel(userRepository.findById(dto.getUserId())
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)))
+                .build();
+    }
 
     public TaskDTO taskToDTO(TaskModel model){
         return TaskDTO.builder()
@@ -37,16 +54,4 @@ public class TaskDtoModelConverter {
                 .build();
     }
 
-    public TaskModel taskToModel(TaskDTO dto){
-        return TaskModel.builder()
-                .name(dto.getName())
-                .description(dto.getDesc())
-                .daysPerTask(dto.getDaysPerTask())
-                .status(dto.getStatus())
-                .projectModel(projectRepository.findById(dto.getProjectId())
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)))
-                .userModel(userRepository.findById(dto.getUserId())
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)))
-                .build();
-    }
 }

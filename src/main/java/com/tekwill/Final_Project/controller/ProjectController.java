@@ -2,6 +2,7 @@ package com.tekwill.Final_Project.controller;
 
 import com.tekwill.Final_Project.dto.ProjectDTO;
 import com.tekwill.Final_Project.service.ProjectService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +26,13 @@ public class ProjectController {
     }
 
     @PostMapping("api/projects/new")
-    public ResponseEntity<String> addProject(@RequestBody ProjectDTO projectDTO){
+    public ResponseEntity<String> addProject(@RequestBody @Valid ProjectDTO projectDTO){
         projectService.addProject(projectDTO);
         return ResponseEntity.ok("New project was added!");
     }
 
     @PatchMapping("api/projects/update/{projectId}")
-    public ResponseEntity<String> updateProjectById(@PathVariable Integer projectId, @RequestBody ProjectDTO projectDTO){
+    public ResponseEntity<String> updateProjectById(@PathVariable Integer projectId, @RequestBody  ProjectDTO projectDTO){
         projectService.updateProjectData(projectId, projectDTO);
         return ResponseEntity.ok("Project with ID: " + projectId + " was updated!");
     }

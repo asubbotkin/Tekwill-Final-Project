@@ -71,7 +71,9 @@ public class TaskService {
         if (taskDTO.getDaysPerTask() != null) updatedTaskModel.setDaysPerTask(taskDTO.getDaysPerTask());
         if (taskDTO.getStatus() != null) updatedTaskModel.setStatus(taskDTO.getStatus());
         taskRepository.save(updatedTaskModel);
-
+//        taskRepository.findById(taskId).stream()
+//                        .map(e -> TaskDtoModelConverter.taskToModel(e))
+//                                .toList();
 //        taskRepository.save(TaskDtoModelConverter.taskToModel(taskDTO));
     }
 
@@ -81,6 +83,8 @@ public class TaskService {
         updatedTask.setStatus(String.valueOf(TaskStatus.DONE));
         taskRepository.save(updatedTask);
     }
+
+
 
     public void startTask(Integer taskId) {
         TaskModel updatedTask = taskRepository.findById(taskId)

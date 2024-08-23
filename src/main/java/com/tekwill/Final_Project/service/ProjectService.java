@@ -21,7 +21,7 @@ public class ProjectService {
 
     public List<ProjectDTO> getAllProjects() {
         return ((List<ProjectModel>) projectRepository.findAll()).stream()
-                .map(e -> ProjectDtoModelConverter.projectToDTO(e))
+                .map(ProjectDtoModelConverter::projectToDTO)
                 .toList();
     }
 
@@ -49,7 +49,7 @@ public class ProjectService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         updatedProject.getProjectTasks().remove(taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
-        projectRepository.save(updatedProject);
+//        projectRepository.save(updatedProject);
     }
 
 //    public void createTaskInProject(Integer projectId, TaskDTO taskDTO) {
